@@ -19,13 +19,39 @@ body
 *, *::before, *::after
   box-sizing: inherit
 
+.whole-wrapper
+  min-height: 100vh
+  min-width: 100vw
+  display: -ms-flexbox
+  display: flex
+  -ms-flex-pack: center
+  justify-content: center
+  -ms-flex-align: center
+  align-items: center
+  -ms-flex-direction: column
+  flex-direction: column
+  .main-container
+    min-width: 100px
+    max-width: 95%
+    padding: 40px 30px
+    display: table
+    text-align: center
+    margin: auto
+    +medium-devices
+      max-width: 80%
+    +large-devices
+      max-width: 60%
+      min-height: 35vh
+
 .button
   background-color: rgb(18, 40, 59)
   padding: 7px 5px
   width: 90px
   transition: 300ms
   margin: 5px
+  cursor: pointer
   &:hover
+    color: rgb(209, 209, 209)
     background-color: #0c1b27
 
 .title
