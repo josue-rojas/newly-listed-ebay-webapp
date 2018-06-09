@@ -31,5 +31,15 @@ app.get('/*', (req, res)=>{
   res.redirect('/');
 });
 
+app.post('/settings', (req, res)=>{
+  settings.item = req.body.item;
+  settings.sleep_time = req.body.sleep_time;
+  settings.notify = req.body.notify;
+  console.log(settings);
+  // TODO updae search_script instance
+  res.status(200).send({success : "Updated Successfully"})
+
+});
+
 app.listen(PORT);
 console.log(`listening on port ${PORT}`);

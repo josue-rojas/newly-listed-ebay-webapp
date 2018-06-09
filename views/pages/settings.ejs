@@ -4,11 +4,30 @@
   <!-- META -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel='stylesheet' href='/css/index.css'/>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <link rel='stylesheet' href='/css/settings.css'>
   <title>eBay Alerts Settings</title>
 </head>
 <body>
-  <%= item %>
-  <%= sleep_time %>
-  <%= notify %>
+  <div class='whole-wrapper'>
+    <div class='main-container'>
+      <div class='inputs-wrapper'>
+        <div class='title'>Settings</div>
+        <div class='line'></div>
+        <div class='input-title'>Item Search</div>
+        <input class='input' name='item' placeholder='Item' value=<%= item %> type='text'>
+        <div class='input-title'>Sleep Time</div>
+        <input class='input' name='sleep_time' placeholder='sleep time' value=<%= sleep_time %> type='text'>
+        <!-- TODO make toggle, more intuitive -->
+        <div class='input-title'>Notify</div>
+        <input class='input' name='notify' value=<%= notify %> type='text'>
+      </div>
+      <div class='button-wrapper'>
+        <div class='button' onclick='submitSettings()'>Save</div>
+        <div class='button' onclick='window.location = "/run"'>Cancel</div>
+      </div>
+    </div>
+    <%- include ../partials/footer %>
+  </div>
+  <script src='/js/settings.js'></script>
 </body>
