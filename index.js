@@ -1,12 +1,11 @@
 let express = require('express');
 let parser = require('body-parser');
-let fs = require("fs");
-let request = require('request');
-let cheerio = require('cheerio');
-let read_settings = fs.readFileSync("settings.json");
-let settings = JSON.parse(read_settings);
 const app = express();
 const PORT = process.env.PORT || 8080;
+let search = require('./search-script');
+// makes instance of search_script
+let search_script = search.search_script_inst;
+let sleep_time = search_script.sleep_time;
 
 app.use(express.static('public/'));
 app.use(parser.json());
@@ -27,8 +26,6 @@ app.get('/settings', (req, res)=>{
 app.get('/*', (req, res)=>{
   res.redirect('/');
 });
-
-
 
 app.listen(PORT);
 console.log(`listening on port ${PORT}`);

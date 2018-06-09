@@ -14,16 +14,23 @@
   flex-direction: column
   .container
     min-width: 100px
-    max-width: 80%
+    max-width: 95%
     padding: 40px 30px
     display: table
     text-align: center
     margin: auto
+    +medium-devices
+      max-width: 80%
+    +large-devices
+      max-width: 60%
+      min-height: 35vh
     .button-container
       margin: auto
       .button
         margin: 5px auto
         +medium-devices
           display: inline-block
+          &:first-child
+            margin-right: 15px
     .text
       margin: 5px 0 15px 0
