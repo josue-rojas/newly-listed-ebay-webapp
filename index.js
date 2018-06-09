@@ -6,6 +6,7 @@ let cheerio = require('cheerio');
 let read_settings = fs.readFileSync("settings.json");
 let settings = JSON.parse(read_settings);
 const app = express();
+const PORT = process.env.PORT || 8080;
 
 app.use(express.static('public/'));
 app.use(parser.json());
@@ -29,5 +30,5 @@ app.get('/*', (req, res)=>{
 
 
 
-app.listen(process.env.PORT || 8080);
-console.log('listening on port '+(process.env.PORT || 8080));
+app.listen(PORT);
+console.log(`listening on port ${PORT}`);

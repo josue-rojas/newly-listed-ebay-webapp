@@ -1,0 +1,29 @@
+@import '../sass/mixins.sass'
+@import '../sass/defaults.sass'
+
+.whole-wrapper
+  min-height: 100vh
+  min-width: 100vw
+  display: -ms-flexbox
+  display: flex
+  -ms-flex-pack: center
+  justify-content: center
+  -ms-flex-align: center
+  align-items: center
+  -ms-flex-direction: column
+  flex-direction: column
+  .container
+    min-width: 100px
+    max-width: 80%
+    padding: 40px 30px
+    display: table
+    text-align: center
+    margin: auto
+    .button-container
+      margin: auto
+      .button
+        margin: 5px auto
+        +medium-devices
+          display: inline-block
+    .text
+      margin: 5px 0 15px 0
