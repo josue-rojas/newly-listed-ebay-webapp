@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- META -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel='stylesheet' href='/css/run.css'/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script>
+    const item = "<%= item %>";
+    const sleep_time = <%= sleep_time %>;
+    const notify = <%= notify %>;
+  </script>
+  <script src='/js/run.js'></script>
+  <title>eBay Alerts Run</title>
+</head>
+<body>
+  <div class='whole-wrapper'>
+    <div class='run-container'>
+      <div class='button' onclick='window.location = "/settings"'>Settings</div>
+    </div>
+    <%- include ../partials/footer.ejs %>
+  </div>
+</body>

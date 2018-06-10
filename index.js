@@ -1,15 +1,16 @@
 let express = require('express');
 let parser = require('body-parser');
 let fs = require("fs");
-read_settings = fs.readFileSync("default_settings.json");
+const app = express();
+let server = require('http').createServer(app);
+let read_settings = fs.readFileSync("default_settings.json");
 let settings = JSON.parse(read_settings);
 let search = require('./search-script');
+const PORT = process.env.PORT || 8080;
+var io = require('socket.io')(server);
 // makes instance of search_script
 // let search_script = search.search_script(settings.item);
 
-
-const app = express();
-const PORT = process.env.PORT || 8080;
 
 app.use(express.static('public/'));
 app.use(parser.json());
@@ -20,7 +21,7 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/run', (req, res)=>{
-
+  res.render('pages/run.ejs', settings);
 });
 
 app.get('/settings', (req, res)=>{
@@ -35,11 +36,22 @@ app.post('/settings', (req, res)=>{
   settings.item = req.body.item;
   settings.sleep_time = req.body.sleep_time;
   settings.notify = req.body.notify;
-  console.log(settings);
   // TODO updae search_script instance
+  io.sockets.emit('settings change');
   res.status(200).send({success : "Updated Successfully"})
 
 });
 
-app.listen(PORT);
+// let total_run_windows = 0;
+// socket connection
+// io.on('connection', (socket)=>{
+//   total_run_windows++
+//   console.log(`someone connected to /run, total: ${total_run_windows}`);
+//   socket.on('disconnect', ()=>{
+//     total_run_windows--;
+//     console.log(`someone disconnected from /run, total: ${total_run_windows}`);
+//   })
+// });
+
+server.listen(PORT);
 console.log(`listening on port ${PORT}`);
