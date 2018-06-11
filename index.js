@@ -9,8 +9,9 @@ let search = require('./search-script');
 const PORT = process.env.PORT || 8080;
 var io = require('socket.io')(server);
 // makes instance of search_script
-// let search_script = search.search_script(settings.item);
+let search_script = search.search_script(settings.item);
 
+// TODO settings should include max_show to display in run page
 
 app.use(express.static('public/'));
 app.use(parser.json());
