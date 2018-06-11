@@ -8,9 +8,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
   <script>
-    const item = "<%= item %>";
-    const sleep_time = <%= sleep_time %>;
-    const notify = <%= notify %>;
+    const item = "<%= settings.item %>";
+    const sleep_time = <%= settings.sleep_time %>;
+    const notify = <%= settings.notify %>;
   </script>
   <script src='/js/run.js'></script>
   <title>eBay Alerts Run</title>
@@ -18,7 +18,17 @@
 <body>
   <div class='whole-wrapper'>
     <div class='run-container'>
-      <div class='button' onclick='window.location = "/settings"'>Settings</div>
+      <div class='buttons-wrapper'>
+        <div class='button' onclick='window.location = "/settings"'>Settings</div>
+      </div>
+      <div class='listings-wrapper'>
+        <% for(let i = 0; i < listings.length; i++){%>
+          <a class='listing' href='<%= listings[i].link %>' target='_blank'>
+            <div class='img' style='background-image: url("<%= listings[i].imageSrc %>")'></div>
+            <div class='listing-title'><%= listings[i].title %></div>
+          </a>
+        <% } %>
+      </div>
     </div>
     <%- include ../partials/footer.ejs %>
   </div>

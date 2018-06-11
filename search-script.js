@@ -39,6 +39,7 @@ class search_script {
           if(this.seen_links.has(link)){
             return false
           }
+          this.seen_links.add(link);
           // ----------
           // get image
           const $image = $single_listing.find('.s-item__image-wrapper .s-item__image-img');
@@ -72,4 +73,4 @@ class search_script {
 // const search = new search_script("ipad mini 4");
 // search.getNewLinks();
 
-// module.exports.search_script = search_script;
+module.exports.search_script = search_script;
