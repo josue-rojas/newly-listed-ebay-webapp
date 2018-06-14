@@ -22,7 +22,10 @@
         <input class='input' name='max_show' value=<%= max_show %>
         <!-- TODO make toggle, more intuitive -->
         <div class='input-title'>Notify</div>
-        <input class='input' name='notify' value=<%= notify %> type='text'>
+        <input class='input-toogle' name='notify' value=<%= notify %> type='toggle'>
+        <div class='input-toggle-box <%= notify %>'>
+          <div class='toggle'></div>
+        </div>
       </div>
       <div class='button-wrapper'>
         <div class='button' onclick='submitSettings()'>Save</div>
