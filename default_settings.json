@@ -1,5 +1,6 @@
 {
   "item": "iphone",
   "sleep_time": 30000,
-  "notify": true
+  "notify": false,
+  "max_show": 10
 }

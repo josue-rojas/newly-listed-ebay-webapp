@@ -11,6 +11,9 @@
     const item = "<%= settings.item %>";
     const sleep_time = <%= settings.sleep_time %>;
     const notify = <%= settings.notify %>;
+    // max_show is so the page won't be too long, i mean if it is might as well browse eBay.....
+    const max_show = <%= settings.max_show %>;
+    let total_listings = <%= listings.length %>;
   </script>
   <script src='/js/run.js'></script>
   <title>eBay Alerts Run</title>
@@ -19,8 +22,8 @@
   <div class='whole-wrapper'>
     <div class='run-container'>
       <div class='buttons-wrapper'>
-        <div class='button' onclick='window.location = "/settings"'>Settings</div>
-        <div class='button' onclick='window.location = "<%= ebay %>"'>eBay Link</div>
+        <a href='/settings' class='button'>Settings</a>
+        <a href='<%= ebay %>' class='button' target='_blank'>eBay Link</a>
       </div>
       <div class='listings-wrapper'>
         <% for(let i = 0; i < listings.length; i++){%>

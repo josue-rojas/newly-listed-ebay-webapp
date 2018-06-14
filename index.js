@@ -14,7 +14,11 @@ let listings = [];
 let listingTimer = null;
 let isRunning = false
 
+// TODO bug where some random listing will not have title or text
+
 // TODO settings should include max_show to display in run page
+// TODO add max price
+// TODO add min price
 
 
 app.use(express.static('public/'));
@@ -63,24 +67,26 @@ function setListings(data) {
   }
   if(data.not_seen.length > 0){
     // checking if first fixes ordering issue when a new item is added
-    //
+    let data_send = null;
     if(listings.length === 0){
-      data.not_seen.forEach((listing)=>{
+      data.not_seen.forEach((listing, index)=>{
+        if(index > settings.max_show-1){
+          return false;
+        }
         listings.push(listing);
       })
+      data_send = listings;
     }
     else {
-      console.log('reversing arr');
-      // data.not_seen.reverse().forEach
-      // listings.unshift(data.not_seen.reverse())
       for(let i = data.not_seen.length-1; i > -1; i--){
+        if(listings.length === settings.max_show){
+          listings.pop();
+        }
         listings.unshift(data.not_seen[i]);
       }
-      // data.not_seen.reverse().forEach((listing)=>{
-      //   listings.unshift(listing);
-      // })
+      data_send = data.not_seen;
     }
-    io.sockets.emit('new listing', data.not_seen)
+    io.sockets.emit('new listing', data_send)
   }
   console.log(`found ${data.not_seen.length} new listings`)
 }

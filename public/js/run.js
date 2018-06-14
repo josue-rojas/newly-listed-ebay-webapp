@@ -17,6 +17,7 @@ const socket = io();
 let notification = null;
 
 // create a new listing html
+// TODO add image or signal that it is a new listings
 function newListing(data){
   return (
     `<a class='listing' href='${data.link}' target='_blank'> \
@@ -34,11 +35,17 @@ socket.on('settings change', ()=>{
 socket.on('new listing', (data)=>{
   if(data.length > 0){
     const $listings = $('.listings-wrapper');
-    data.reverse().forEach((e)=>{
+    data.reverse().forEach((e, i)=>{
+      console.log(total_listings, max_show)
+      if(total_listings === max_show){
+        console.log('remove');
+        $listings.find('.listing:last-child').remove();
+        total_listings--;
+      }
+      total_listings++;
       $listings.prepend(newListing(e));
     })
     // TODO: add a photo or somethign nice
-    // Might be a problem for multiple pages open at the same time
     if(hasNotifications){
       notification= new Notification(`New listings found: ${data.length}`);
     }
