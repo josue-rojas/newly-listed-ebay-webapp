@@ -19,7 +19,7 @@ let notification = null;
 // create a new listing html
 function newListing(data){
   return (
-    `<a class='listing' href='${data.link} target='_blank'> \
+    `<a class='listing' href='${data.link}' target='_blank'> \
       <div class='img' style='background-image: url("${data.imageSrc}")'></div> \
       <div class='listing-title'>${data.title}</div> \
     </a>`
