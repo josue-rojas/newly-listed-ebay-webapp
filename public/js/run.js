@@ -14,6 +14,7 @@ else if (Notification.permission !== "denied" && notify) {
 }
 
 const socket = io();
+let notification = null;
 
 // create a new listing html
 function newListing(data){
@@ -33,9 +34,13 @@ socket.on('settings change', ()=>{
 socket.on('new listing', (data)=>{
   if(data.length > 0){
     const $listings = $('.listings-wrapper');
-    data.forEach((e)=>{
+    data.reverse().forEach((e)=>{
       $listings.prepend(newListing(e));
     })
+    // TODO: add a photo or somethign nice
+    // Might be a problem for multiple pages open at the same time
+    if(hasNotifications){
+      notification= new Notification(`New listings found: ${data.length}`);
+    }
   }
-  // console.log(data)
 })

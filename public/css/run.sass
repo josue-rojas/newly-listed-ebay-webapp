@@ -6,11 +6,17 @@
 .whole-wrapper
   .run-container
     width: 100%
-    margin: auto
+    margin: 5px auto
     .buttons-wrapper
       padding-top: 15px
+      display: table
+      margin: auto
       .button
-        margin: auto
+        margin: 5px auto
+        +medium-devices
+          display: inline-block
+          &:first-child
+            margin-right: 15px
     .listings-wrapper
       display: flex
       flex-wrap: wrap
@@ -35,8 +41,10 @@
           &:nth-child(4n+1)
             margin-left: 4%
         .img
+          background-color: $border-color
           background-position: center
-          background-size: cover
+          background-size: contain
+          background-repeat: no-repeat
           width: 100%
           height: 250px
         .listing-title

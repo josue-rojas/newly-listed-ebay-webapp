@@ -16,7 +16,7 @@ class search_script {
   }
 
   getNewLinks(callback) {
-    const url = `https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=50%27&_nkw=${this.item}&_sop=10`
+    const url = `https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=25%27&_nkw=${this.item}&_sop=10`
     request(url, (error, responce, html)=> {
       if(error) {
         console.log('error in request');

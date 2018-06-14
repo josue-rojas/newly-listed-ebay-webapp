@@ -26,7 +26,8 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/run', (req, res)=>{
-  res.render('pages/run.ejs', {settings: settings, listings: listings});
+  const url = `https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=50%27&_nkw=${settings.item}&_sop=10`
+  res.render('pages/run.ejs', {settings: settings, listings: listings, ebay: url});
 });
 
 app.get('/settings', (req, res)=>{
@@ -61,9 +62,24 @@ function setListings(data) {
     return false;
   }
   if(data.not_seen.length > 0){
-    data.not_seen.forEach((listing)=>{
-      listings.push(listing);
-    })
+    // checking if first fixes ordering issue when a new item is added
+    //
+    if(listings.length === 0){
+      data.not_seen.forEach((listing)=>{
+        listings.push(listing);
+      })
+    }
+    else {
+      console.log('reversing arr');
+      // data.not_seen.reverse().forEach
+      // listings.unshift(data.not_seen.reverse())
+      for(let i = data.not_seen.length-1; i > -1; i--){
+        listings.unshift(data.not_seen[i]);
+      }
+      // data.not_seen.reverse().forEach((listing)=>{
+      //   listings.unshift(listing);
+      // })
+    }
     io.sockets.emit('new listing', data.not_seen)
   }
   console.log(`found ${data.not_seen.length} new listings`)
@@ -78,8 +94,8 @@ io.on('connection', (socket)=>{
   socket.on('disconnect', ()=>{
     total_run_windows--;
     console.log(`someone disconnected from /run, total: ${total_run_windows}`);
-    console.log('stopping timer for fetching');
     if(total_run_windows === 0){
+      console.log('stopping timer for fetching');
       clearTimeout(listingTimer)
       isRunning = false;
       // TODO might decide to reset everything
