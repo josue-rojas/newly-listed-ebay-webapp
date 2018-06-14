@@ -4,10 +4,12 @@ function submitSettings() {
   const item = $('[name="item"]').val();
   const sleep_time = $('[name="sleep_time"]').val();
   const notify = $('[name="notify"]').val();
+  const notify = $('[name="max_show"]').val();
   const data = {
     item: item,
     sleep_time: sleep_time,
-    notify: notify
+    notify: notify,
+    max_show: max_show
   }
   fetch('/settings', {
     body: JSON.stringify(data),
