@@ -11,6 +11,8 @@ var io = require('socket.io')(server);
 // makes instance of search_script
 let search_script = new search.search_script(settings.item);
 let listings = [];
+let listingTimer = null;
+let isRunning = false
 
 // TODO settings should include max_show to display in run page
 
@@ -39,8 +41,13 @@ app.post('/settings', (req, res)=>{
   settings.item = req.body.item;
   settings.sleep_time = req.body.sleep_time;
   settings.notify = req.body.notify;
-  // TODO updae search_script instance
   io.sockets.emit('settings change');
+  // although isRunning is false it should turn back on if anyone is at '/run' because this should refresh the page in the front end js this triggering socket.io connection
+  // this should reset everything
+  search_script.setItem(req.body.item)
+  clearTimeout(listingTimer)
+  isRunning = false;
+  listings = [];
   res.status(200).send({success : "Updated Successfully"})
 
 });
@@ -64,8 +71,6 @@ function setListings(data) {
 
 // only run search_script when there is at least one connection as to not waste resources, this keeps track of connections
 let total_run_windows = 0;
-let listingTimer = null;
-let isRunning = false
 // socket connection
 io.on('connection', (socket)=>{
   total_run_windows++
