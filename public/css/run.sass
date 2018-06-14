@@ -1,0 +1,51 @@
+@import '../sass/mixins.sass'
+@import '../sass/defaults.sass'
+// @import '../sass/colors.sass'
+
+
+.whole-wrapper
+  .run-container
+    width: 100%
+    margin: auto
+    .buttons-wrapper
+      padding-top: 15px
+      .button
+        margin: auto
+    .listings-wrapper
+      display: flex
+      flex-wrap: wrap
+      .listing
+        background-color: $button-main-color
+        text-decoration: none
+        text-align: center
+        width: 100%
+        border: 1px solid $border-color
+        transition: background-color 300ms
+        margin: 10px 0
+        +medium-devices
+          width: 40%
+          margin: 15px 6.6666% 15px 0
+          &:nth-child(2n+1)
+            margin-left: 6.6666%
+        +large-devices
+          width: 20%
+          margin-right: 4%
+          &:nth-child(2n+1)
+            margin-left: 0
+          &:nth-child(4n+1)
+            margin-left: 4%
+        .img
+          background-position: center
+          background-size: cover
+          width: 100%
+          height: 250px
+        .listing-title
+          padding: 7px 10px
+          color: $font-main-color
+          transition: color 300ms
+          border-top: 1px solid $border-color
+          margin: auto
+        &:hover
+          background-color: $button-hover-color
+          .listing-title
+            color: $link-hover-color

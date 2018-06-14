@@ -1,5 +1,5 @@
 {
   "item": "ipad mini 4",
-  "sleep_time": 1000,
-  "notify": true 
+  "sleep_time": 30000,
+  "notify": true
 }

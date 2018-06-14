@@ -1,5 +1,4 @@
 // TODO check inputs for correctness and onchange
-// TODO add key up enter to submit
 
 function submitSettings() {
   const item = $('[name="item"]').val();
@@ -22,3 +21,10 @@ function submitSettings() {
   .catch(error => console.error('Error:', error))
   .then(response => window.location = '/run');
 }
+
+
+$('.inputs-wrapper  .input').keyup(()=> {
+  if (event.keyCode === 13) {
+    submitSettings();
+  }
+});

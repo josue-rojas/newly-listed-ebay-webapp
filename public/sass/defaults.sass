@@ -1,3 +1,5 @@
+@import 'colors.sass'
+
 html
   -webkit-box-sizing: border-box
   box-sizing: border-box
@@ -13,8 +15,8 @@ body
   font-size: 1rem
   font-weight: 400
   line-height: 1.5
-  background-color: rgb(24, 55, 80)
-  color: rgb(181, 181, 181)
+  background-color: $main-color
+  color: $font-main-color
 
 *, *::before, *::after
   box-sizing: inherit
@@ -34,7 +36,6 @@ body
     min-width: 100px
     max-width: 95%
     padding: 40px 30px
-    display: table
     text-align: center
     margin: auto
     +medium-devices
@@ -44,26 +45,27 @@ body
       min-height: 35vh
 
 .button
-  background-color: rgb(18, 40, 59)
+  background-color: $button-main-color
   padding: 7px 5px
   width: 90px
   transition: 300ms
   margin: 5px
   cursor: pointer
+  text-align: center
   &:hover
-    color: rgb(209, 209, 209)
-    background-color: #0c1b27
+    color: $link-hover-color
+    background-color: $button-hover-color
 
 .title
   font-size: 1.5rem
 
 .link
-  color: rgb(181, 181, 181)
+  color: $font-main-color
   transition: 300ms
   cursor: pointer
   text-decoration: none
   &:hover
-    color: rgb(209, 209, 209)
+    color: $link-hover-color
 
 footer
   font-size: .9rem

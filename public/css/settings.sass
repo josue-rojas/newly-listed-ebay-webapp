@@ -1,5 +1,6 @@
 @import '../sass/mixins.sass'
 @import '../sass/defaults.sass'
+@import '../sass/colors.sass'
 
 .whole-wrapper
   .main-container
@@ -7,7 +8,7 @@
     .line
       margin: auto
       width: 85%
-      border-top: 1px solid rgb(181, 181, 181)
+      border-top: 1px solid $font-main-color
       margin-bottom: 10px
     .inputs-wrapper
       margin: auto
@@ -21,8 +22,8 @@
         background-color: transparent
         border: none
         padding: 10px
-        color: rgb(181, 181, 181)
-        border: 1px solid hsla(0,0%,100%,.2)
+        color: $font-main-color
+        border: 1px solid $border-color
         outline: none
         transition: .3s
         &:focus
