@@ -24,8 +24,6 @@ class search_script {
       }
       else {
         let $ = cheerio.load(html);
-        // console.log('html', html);
-        // return
         let not_seen = [];
         // this is the whole listing including title, img, price
         const listings = $('div.srp-river-results.clearfix .s-item');

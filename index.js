@@ -48,6 +48,7 @@ app.post('/settings', (req, res)=>{
 
 // callback for getNewLinks in search_script
 function setListings(data) {
+  console.log('fetching new listings');
   if(data.error){
     console.log('error in search script');
     return false;
@@ -58,10 +59,13 @@ function setListings(data) {
     })
     io.sockets.emit('new listing', data.not_seen)
   }
+  console.log(`found ${data.not_seen.length} new listings`)
 }
 
 // only run search_script when there is at least one connection as to not waste resources, this keeps track of connections
 let total_run_windows = 0;
+let listingTimer = null;
+let isRunning = false
 // socket connection
 io.on('connection', (socket)=>{
   total_run_windows++
@@ -69,17 +73,23 @@ io.on('connection', (socket)=>{
   socket.on('disconnect', ()=>{
     total_run_windows--;
     console.log(`someone disconnected from /run, total: ${total_run_windows}`);
-    //
+    console.log('stopping timer for fetching');
     if(total_run_windows === 0){
-      // stop
+      clearTimeout(listingTimer)
+      isRunning = false;
       // TODO might decide to reset everything
     }
   })
 
-  //
-  if(total_run_windows === 1){
-    // start
+  if(total_run_windows === 1 && !isRunning){
+    // start timer and set isRunning to prevent others from runnning
+    console.log('starting timer for fetching');
+    isRunning = true;
+    // run initial to get first 50
     search_script.getNewLinks(setListings)
+    listingTimer = setInterval(()=>{
+      search_script.getNewLinks(setListings)
+    }, settings.sleep_time);
   }
 
 });
