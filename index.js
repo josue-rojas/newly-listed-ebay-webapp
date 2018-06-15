@@ -14,7 +14,11 @@ let listings = [];
 let listingTimer = null;
 let isRunning = false
 
+// TODO bug where some random listing will not have title or text
+
 // TODO settings should include max_show to display in run page
+// TODO add max price
+// TODO add min price
 
 
 app.use(express.static('public/'));
@@ -26,7 +30,8 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/run', (req, res)=>{
-  res.render('pages/run.ejs', {settings: settings, listings: listings});
+  const url = `https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=50%27&_nkw=${settings.item}&_sop=10`
+  res.render('pages/run.ejs', {settings: settings, listings: listings, ebay: url});
 });
 
 app.get('/settings', (req, res)=>{
@@ -61,10 +66,27 @@ function setListings(data) {
     return false;
   }
   if(data.not_seen.length > 0){
-    data.not_seen.forEach((listing)=>{
-      listings.push(listing);
-    })
-    io.sockets.emit('new listing', data.not_seen)
+    // checking if first fixes ordering issue when a new item is added
+    let data_send = null;
+    if(listings.length === 0){
+      data.not_seen.forEach((listing, index)=>{
+        if(index > settings.max_show-1){
+          return false;
+        }
+        listings.push(listing);
+      })
+      data_send = listings;
+    }
+    else {
+      for(let i = data.not_seen.length-1; i > -1; i--){
+        if(listings.length === settings.max_show){
+          listings.pop();
+        }
+        listings.unshift(data.not_seen[i]);
+      }
+      data_send = data.not_seen;
+    }
+    io.sockets.emit('new listing', data_send)
   }
   console.log(`found ${data.not_seen.length} new listings`)
 }
@@ -78,8 +100,8 @@ io.on('connection', (socket)=>{
   socket.on('disconnect', ()=>{
     total_run_windows--;
     console.log(`someone disconnected from /run, total: ${total_run_windows}`);
-    console.log('stopping timer for fetching');
     if(total_run_windows === 0){
+      console.log('stopping timer for fetching');
       clearTimeout(listingTimer)
       isRunning = false;
       // TODO might decide to reset everything

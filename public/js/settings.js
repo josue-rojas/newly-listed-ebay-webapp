@@ -4,10 +4,12 @@ function submitSettings() {
   const item = $('[name="item"]').val();
   const sleep_time = $('[name="sleep_time"]').val();
   const notify = $('[name="notify"]').val();
+  const max_show = $('[name="max_show"]').val();
   const data = {
     item: item,
     sleep_time: sleep_time,
-    notify: notify
+    notify: notify,
+    max_show: max_show
   }
   fetch('/settings', {
     body: JSON.stringify(data),
@@ -28,3 +30,9 @@ $('.inputs-wrapper  .input').keyup(()=> {
     submitSettings();
   }
 });
+
+$('.inputs-wrapper .input-toggle-box').click(()=>{
+  let nextVal = $('[name="notify"]').val() === 'true' ? 'false': 'true';
+  $('[name="notify"]').val(nextVal);
+  $('.inputs-wrapper .input-toggle-box').toggleClass('false');
+})

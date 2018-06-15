@@ -1,16 +1,21 @@
 @import '../sass/mixins.sass'
 @import '../sass/defaults.sass'
-// @import '../sass/colors.sass'
 
 
 .whole-wrapper
   .run-container
     width: 100%
-    margin: auto
+    margin: 5px auto
     .buttons-wrapper
       padding-top: 15px
+      display: table
+      margin: auto
       .button
-        margin: auto
+        margin: 5px auto
+        +medium-devices
+          display: inline-block
+          &:first-child
+            margin-right: 15px
     .listings-wrapper
       display: flex
       flex-wrap: wrap
@@ -22,6 +27,7 @@
         border: 1px solid $border-color
         transition: background-color 300ms
         margin: 10px 0
+        position: relative
         +medium-devices
           width: 40%
           margin: 15px 6.6666% 15px 0
@@ -34,9 +40,19 @@
             margin-left: 0
           &:nth-child(4n+1)
             margin-left: 4%
+        // TODO redesign this new listing
+        &.new-listing::before
+          content: "New Listing"
+          padding: 7px 10px
+          right: 0
+          background-color: $button-main-color
+          color: $font-main-color
+          position: absolute
         .img
+          background-color: $border-color
           background-position: center
-          background-size: cover
+          background-size: contain
+          background-repeat: no-repeat
           width: 100%
           height: 250px
         .listing-title
