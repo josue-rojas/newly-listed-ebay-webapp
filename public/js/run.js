@@ -20,7 +20,7 @@ let notification = null;
 // TODO add image or signal that it is a new listings
 function newListing(data){
   return (
-    `<a class='listing' href='${data.link}' target='_blank'> \
+    `<a class='listing new-listing' href='${data.link}' target='_blank'> \
       <div class='img' style='background-image: url("${data.imageSrc}")'></div> \
       <div class='listing-title'>${data.title}</div> \
     </a>`
@@ -34,6 +34,7 @@ socket.on('settings change', ()=>{
 
 socket.on('new listing', (data)=>{
   if(data.length > 0){
+    $('.new-listing').removeClass('new-listing');
     const $listings = $('.listings-wrapper');
     data.reverse().forEach((e, i)=>{
       console.log(total_listings, max_show)

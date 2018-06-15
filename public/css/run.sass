@@ -1,6 +1,5 @@
 @import '../sass/mixins.sass'
 @import '../sass/defaults.sass'
-// @import '../sass/colors.sass'
 
 
 .whole-wrapper
@@ -28,6 +27,7 @@
         border: 1px solid $border-color
         transition: background-color 300ms
         margin: 10px 0
+        position: relative
         +medium-devices
           width: 40%
           margin: 15px 6.6666% 15px 0
@@ -40,6 +40,14 @@
             margin-left: 0
           &:nth-child(4n+1)
             margin-left: 4%
+        // TODO redesign this new listing
+        &.new-listing::before
+          content: "New Listing"
+          padding: 7px 10px
+          right: 0
+          background-color: $button-main-color
+          color: $font-main-color
+          position: absolute
         .img
           background-color: $border-color
           background-position: center
