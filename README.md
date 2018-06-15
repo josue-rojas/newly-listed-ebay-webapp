@@ -13,3 +13,20 @@ This is meant to run locally only since it is web scraping. Also I try to make t
 
 ### Things to add later
 - [text message notifications](https://www.twilio.com/docs/sms/tutorials/how-to-send-sms-messages-node-js)
+
+### Before Installing
+This is web scraping so try not to make the request time (sleep_time) to short. This uses [Node.js](https://nodejs.org/en/).
+
+### Installing
+```shell
+git clone https://github.com/josuerojasrojas/newly-listed-ebay-webapp.git
+cd newly-listed-ebay-webapp
+npm install
+npm start
+```
+
+### Issues
+Just add them and I will look at them (@me so I will be notified).
+
+### Contributing
+If you would like to contribute, when I write things sometimes I leave behind 'TODO', you can search them and if you can figure out then make a pull request. Some are simple and others might just be confusing since they come out off the state of the moment.  
