@@ -15,10 +15,10 @@ let listingTimer = null;
 let isRunning = false
 
 // TODO bug where some random listing will not have title or text
-
-// TODO settings should include max_show to display in run page
 // TODO add max price
 // TODO add min price
+// TODO add custom url
+// http://www.helios825.org/url-parameters.php for custom url and more settings, ie: condition, specific seller, top rated sellers only, etc
 
 
 app.use(express.static('public/'));

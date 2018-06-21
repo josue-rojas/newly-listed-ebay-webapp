@@ -17,7 +17,7 @@ const socket = io();
 let notification = null;
 
 // create a new listing html
-// TODO add image or signal that it is a new listings
+// TODO add image or signal that it is a new listings, this should be added in the sass (.new-listing)
 function newListing(data){
   return (
     `<a class='listing new-listing' href='${data.link}' target='_blank'> \
@@ -47,6 +47,7 @@ socket.on('new listing', (data)=>{
       $listings.prepend(newListing(e));
     })
     // TODO: add a photo or somethign nice
+    // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification image option in constructor can do that
     if(hasNotifications){
       notification= new Notification(`New listings found: ${data.length}`);
     }
