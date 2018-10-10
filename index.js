@@ -46,6 +46,7 @@ app.post('/settings', (req, res)=>{
   settings.item = req.body.item;
   settings.sleep_time = req.body.sleep_time;
   settings.notify = req.body.notify;
+  settings.max_show = req.body.max_show;
   io.sockets.emit('settings change');
   // although isRunning is false it should turn back on if anyone is at '/run' because this should refresh the page in the front end js this triggering socket.io connection
   // this should reset everything
