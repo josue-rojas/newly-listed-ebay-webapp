@@ -1,23 +1,20 @@
 let request = require('request');
 let cheerio = require('cheerio');
 
-// TODO add custom url support
-
 class search_script {
-  constructor(item) {
-    this.item = encodeURI(item);
-    this.seen_links = new Set([]);
+  constructor(item, max, min) {
+    this.setNewURL(item, max, min);
   }
 
-  // sort of acts a reset
-  setItem(new_item) {
+  setNewURL(item, max, min){
+    const max_query = max > 0 ? `&_udhi=${max}` : '';
+    const min_query =  min > 0 ? `&_udlo=${min}` : '';
+    this.url = encodeURI(`https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=50%27&_nkw=${item}&_sop=10${max_query}${min_query}`);
     this.seen_links = new Set([]);
-    this.item = encodeURI(new_item);
   }
 
   getNewLinks(callback) {
-    const url = `https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=25%27&_nkw=${this.item}&_sop=10`
-    request(url, (error, responce, html)=> {
+    request(this.url, (error, responce, html)=> {
       if(error) {
         console.log('error in request');
         callback({error: true})

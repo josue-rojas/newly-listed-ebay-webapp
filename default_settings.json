@@ -2,5 +2,7 @@
   "item": "iphone",
   "sleep_time": 30000,
   "notify": false,
+  "max_price": 100,
+  "min_price": 10,
   "max_show": 20
 }
