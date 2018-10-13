@@ -8,16 +8,14 @@ let settings = JSON.parse(read_settings);
 let search = require('./search-script');
 const PORT = process.env.PORT || 8080;
 var io = require('socket.io')(server);
+const HOSTNAME = require('os').hostname();
 // makes instance of search_script
-let search_script = new search.search_script(settings.item);
+let search_script = new search.search_script(settings.item, settings.max_price, settings.min_price);
 let listings = [];
 let listingTimer = null;
 let isRunning = false
 
 // TODO bug where some random listing will not have title or text
-// TODO add max price
-// TODO add min price
-// TODO add custom url
 // http://www.helios825.org/url-parameters.php for custom url and more settings, ie: condition, specific seller, top rated sellers only, etc
 
 
@@ -30,8 +28,7 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/run', (req, res)=>{
-  const url = `https://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_ipg=50%27&_nkw=${settings.item}&_sop=10`
-  res.render('pages/run.ejs', {settings: settings, listings: listings, ebay: url});
+  res.render('pages/run.ejs', {settings: settings, listings: listings, ebay: search_script.url});
 });
 
 app.get('/settings', (req, res)=>{
@@ -43,15 +40,12 @@ app.get('/*', (req, res)=>{
 });
 
 app.post('/settings', (req, res)=>{
-  settings.item = req.body.item;
-  settings.sleep_time = req.body.sleep_time;
-  settings.notify = req.body.notify;
-  settings.max_show = req.body.max_show;
+  settings = {...req.body};
   io.sockets.emit('settings change');
   // although isRunning is false it should turn back on if anyone is at '/run' because this should refresh the page in the front end js this triggering socket.io connection
   // this should reset everything
-  search_script.setItem(req.body.item)
-  clearTimeout(listingTimer)
+  search_script.setNewURL(req.body.item, req.body.max_price, req.body.min_price);
+  clearTimeout(listingTimer);
   isRunning = false;
   listings = [];
   res.status(200).send({success : "Updated Successfully"})
@@ -122,5 +116,8 @@ io.on('connection', (socket)=>{
 
 });
 
-server.listen(PORT);
-console.log(`listening on port ${PORT}`);
+
+server.listen(PORT, ()=>{
+  console.log(`listening on port: ${PORT}`);
+  console.log(`Go to ${HOSTNAME}:${PORT}`);
+});
