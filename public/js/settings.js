@@ -1,4 +1,4 @@
-// TODO check inputs for correctness and onchange
+// TODO: TODO check inputs for correctness and onchange
 
 function submitSettings() {
   const item = $('[name="item"]').val();
